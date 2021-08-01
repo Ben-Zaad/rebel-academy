@@ -25,7 +25,7 @@ export function GraphColumn({ item }) {
   const NameText = styled.p`
     color: #FFE81F;
     text-align: center;
-    margin-top: -10vh;
+    margin-top: -14vh;
   `;
 
   const PopulationText = styled.p`
