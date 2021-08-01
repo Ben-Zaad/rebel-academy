@@ -25,7 +25,7 @@ export function GraphColumn({ item }) {
   const NameText = styled.p`
     color: #FFE81F;
     text-align: center;
-    margin-top: -7vh;
+    margin-top: -10vh;
   `;
 
   const PopulationText = styled.p`
@@ -37,10 +37,10 @@ export function GraphColumn({ item }) {
   return (
     <Container>
       <LegendDiv>
-        <NameText key={item.name}>{item.name}</NameText>
+        <NameText>{item.name}</NameText>
       </LegendDiv>
       <PopulationCountDiv>
-        <PopulationText key={item.name}>{item.population}</PopulationText>
+        <PopulationText>{item.population}</PopulationText>
       </PopulationCountDiv>
     </Container>
   );

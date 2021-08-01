@@ -54,11 +54,10 @@ export function PlanetPopulationGraph({ callback }) {
   } else {
     return (
       <Div>
-
         <Graph>
           {items.results &&
             items.results.map(
-              (item) => isPlanetValid(item.name) && <GraphColumn item={item} />
+              (item) => isPlanetValid(item.name) && <GraphColumn key={item.name} item={item} />
             )}
         </Graph>
       </Div>

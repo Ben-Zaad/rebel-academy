@@ -14,7 +14,9 @@ function App() {
   return (
     <AppRootDiv>
       <Title>Welcome Rebel!</Title>
+      <SubTitle>Graph shows Selected Planet Poplations</SubTitle>
       <PlanetPopulationGraph callback={callback} />
+      <GraphSubTitle>Poplation Shown on a logarmitc (log2) scale</GraphSubTitle>
     </AppRootDiv>
   )
 }
@@ -28,7 +30,19 @@ const AppRootDiv = styled.div`
 const Title = styled.h1`
   color: #FFE81F;
   text-align: center;
-  padding-top: 6vh;
+  padding-top: 8vh;
+`;
+
+const SubTitle = styled.h3`
+color: #FFE81F;
+text-align: center;
+`;
+
+const GraphSubTitle = styled.h4`
+  color: #FFE81F;
+  text-align: center;
+  font-style: italic;
+  margin-top: -2vh;
 `;
 
 export default App;
