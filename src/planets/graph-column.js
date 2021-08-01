@@ -5,6 +5,12 @@ export function GraphColumn({ item }) {
   const Container = styled.div`
     width: 5vw;
     align-self: center;
+    @media (max-width: 1400px) {
+        width: 10vw;
+    }
+    @media (max-width: 660px) {
+        width: 15vw;
+    }
   `;
 
   const LegendDiv = styled.div`
@@ -26,6 +32,9 @@ export function GraphColumn({ item }) {
     color: #FFE81F;
     text-align: center;
     margin-top: -14vh;
+    @media (max-width: 1400px) {
+        margin-right: 10vw;
+    }
   `;
 
   const PopulationText = styled.p`
