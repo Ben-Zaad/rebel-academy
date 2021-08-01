@@ -3,10 +3,23 @@ import styled from 'styled-components';
 
 import { GraphColumn } from './graph-column';
 
+// import { IMAGES } from '../images/images';
+
 export function PlanetPopulationGraph({ callback }) {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
+
+  const isPlanetValid = (planetName) => {
+    const validPlanetsList = [
+      'Tatooine',
+      'Alderaan',
+      'Naboo',
+      'Bespin',
+      'Endor',
+    ];
+    return validPlanetsList.includes(planetName);
+  };
 
   // Note: the empty deps array [] means
   // this useEffect will run once
@@ -33,25 +46,36 @@ export function PlanetPopulationGraph({ callback }) {
   if (error) {
     return <div>Error: {error.message}</div>;
   } else if (!isLoaded) {
-    return <><LoadingText>Loading...</LoadingText></>;
-  } else {
-    console.log('Items', items);
     return (
-      <Graph>
-        {items.results &&
-          items.results.map((item) => (
-            <GraphColumn item={item} />
-          ))}
-      </Graph>
+      <>
+        <LoadingText>Loading...</LoadingText>
+      </>
+    );
+  } else {
+    return (
+      <Div>
+
+        <Graph>
+          {items.results &&
+            items.results.map(
+              (item) => isPlanetValid(item.name) && <GraphColumn item={item} />
+            )}
+        </Graph>
+      </Div>
     );
   }
 }
+
+const Div = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+`;
 
 const Graph = styled.div`
   display: flex;
   flex-direction: row;
   padding-top: 50vh;
-  padding-left: 8vw;
 `;
 
 const LoadingText = styled.p`

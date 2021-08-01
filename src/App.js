@@ -13,6 +13,7 @@ function App() {
   }
   return (
     <AppRootDiv>
+      <Title>Welcome Rebel!</Title>
       <PlanetPopulationGraph callback={callback} />
     </AppRootDiv>
   )
@@ -22,6 +23,12 @@ const AppRootDiv = styled.div`
   width: 99vw;
   height: 100vh;
   background-image: url(${background});
+`;
+
+const Title = styled.h1`
+  color: #FFE81F;
+  text-align: center;
+  padding-top: 6vh;
 `;
 
 export default App;
