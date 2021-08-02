@@ -20,8 +20,7 @@ export function PlanetPopulationGraph({ callback }) {
   return (
     <Div>
       <Graph>
-        {/*CREATES A 1000 WARNINGS ON CONSOLE- CHECK BEFORE ALLOWING*/}    
-        {plantes.length > 0 &&
+        {plantes.length > 0 ?
           plantes
             .filter(
               (planet) =>
@@ -31,7 +30,8 @@ export function PlanetPopulationGraph({ callback }) {
                 planet.name === 'Bespin' ||
                 planet.name === 'Endor'
             )
-            .map((item) => <GraphColumn key={item.name} item={item} />)}
+            .map((item) => <GraphColumn key={item.name} item={item} />):
+            <Loading>Loading Planet Data</Loading>}
       </Graph>
     </Div>
   );
@@ -48,3 +48,7 @@ const Graph = styled.div`
   flex-direction: row;
   padding-top: 50vh;
 `;
+
+const Loading = styled.h2`
+  color: white;
+`

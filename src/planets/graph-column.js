@@ -5,7 +5,7 @@ export function GraphColumn({ item }) {
   return (
     <Container>
       <LegendDiv>
-        {/* <NameText>{item.name}</NameText> */}
+        <NameText>{item.name}</NameText>
       </LegendDiv>
       <PopulationCountDiv height={`${Math.log2(item.population)}vh`}>
         <PopulationText>{item.population}</PopulationText>
@@ -46,7 +46,7 @@ const LegendDiv = styled.div`
 const NameText = styled.p`
 color: #FFE81F;
 text-align: center;
-margin-top: -35vh;
+margin-top: -12vh;
 @media (max-width: 1400px) {
     margin-right: 10vw;
 }
