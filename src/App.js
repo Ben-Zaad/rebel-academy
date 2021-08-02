@@ -18,7 +18,7 @@ function App() {
       <Title>Welcome Rebel!</Title>
       <SubTitle>Graph shows Selected Planet Poplations</SubTitle>
       <PlanetPopulationGraph callback={callback} />
-      <Vehicles />
+      {/* <Vehicles /> */}
       <GraphSubTitle>Poplation Shown on a logarmitc (log2) scale</GraphSubTitle>
     </AppRootDiv>
   )

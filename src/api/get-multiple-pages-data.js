@@ -4,25 +4,21 @@ import styled from 'styled-components';
 
 // import { IMAGES } from '../images/images';
 
-export function GetMultiplePagesData({ url, callback }) {
+export function GetMultiplePagesData({ title, url, callback }) {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
   const [itemsTotalNumber, setItemsTotalNumber] = useState(2);
-  const [pageCounter, setPageCounter] = useState(2);
+  const [pageCounter, setPageCounter] = useState(1);
 
   useEffect(() => {
-    console.log("ITEMS",items);
-    console.log("itemsTotalNumber",itemsTotalNumber);
     if (items.length < itemsTotalNumber){
-      console.log("pageCounter",pageCounter);
       // do {
         fetch(`${url}/?page=${pageCounter}`)
         .then((res) => res.json())
         .then(
           (result) => {
             // callback(result);
-            console.log("Result",result.results);
             setIsLoaded(true);
             setItems([...items, ...result.results]);
             setItemsTotalNumber(result.count);
@@ -39,24 +35,21 @@ export function GetMultiplePagesData({ url, callback }) {
     } else {
       callback(items)
     }
-  },[items, itemsTotalNumber])
+  },[items])
 
   // Note: the empty deps array [] means
   // this useEffect will run once
   // similar to componentDidMount()
   useEffect(() => {
-    let pageCounter = 1;
-    // do {
-      fetch(`https://swapi.dev/api/vehicles/?page=1`)
+      fetch(`${url}/?page=1`)
         .then((res) => res.json())
         .then(
           (result) => {
             // callback(result);
-            console.log("Result",result.results);
             setIsLoaded(true);
             setItems(result.results);
             setItemsTotalNumber(result.count);
-            ++pageCounter;
+            setPageCounter(2);
           },
           // Note: it's important to handle errors here
           // instead of a catch() block so that we don't swallow
@@ -67,9 +60,6 @@ export function GetMultiplePagesData({ url, callback }) {
           }
           )
     }
-  //  while (items.length < itemsTotalNumber);
-  //  while (pageCounter < 4);
-  // }
   , []);
 
   if (error) {
@@ -77,7 +67,7 @@ export function GetMultiplePagesData({ url, callback }) {
   } else if (!isLoaded) {
     return (
       <>
-        <LoadingText>Loading...</LoadingText>
+        <LoadingText>Loading {title} data...</LoadingText>
       </>
     );
   } else {

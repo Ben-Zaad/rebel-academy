@@ -10,7 +10,7 @@ export function Vehicles({  }) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [vehicles, setItems] = useState([]);
   const [vehiclesTotalNumber, setItemsTotalNumber] = useState(2);
-  const [pageCounter, setPageCounter] = useState(2);
+  const [pageCounter, setPageCounter] = useState(1);
 
   useEffect(() => {
     console.log("Vehicles",vehicles);
