@@ -1,38 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect }  from 'react';
 
 import { GetMultiplePagesData } from '../api/get-multiple-pages-data';
+import { getMultiplePagesData } from '../api/get-multiple-pages-data-noreact';
 
-// import { IMAGES } from '../images/images';
 
 export function Vehicles({ callback }) {
-  const [error, setError] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [vehicles, setItems] = useState([]);
-  const [vehiclesTotalNumber, setItemsTotalNumber] = useState(2);
-  const [pageCounter, setPageCounter] = useState(1);
-  
-    return (
-      <Div>
-        <Graph>
-          <GetMultiplePagesData url='https://swapi.dev/api/vehicles' callback={callback} />
-        </Graph>
-      </Div>
-    );
+  const filterPilotlessVehicles = (data) => {
+    const filterdData = data.filter(vehicles => vehicles.pilots.length > 0);
+    callback(filterdData);
   }
+  
+  useEffect(
+    ()=>getMultiplePagesData('https://swapi.dev/api/vehicles',filterPilotlessVehicles)
+  ,[])
 
-const Div = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-`;
-
-const Graph = styled.div`
-  display: flex;
-  flex-direction: row;
-  padding-top: 50vh;
-`;
-
-const LoadingText = styled.p`
-  color: white;
-`;
+  return (
+    <div>
+      {/* <GetMultiplePagesData
+        url='https://swapi.dev/api/vehicles'
+        callback={filterPilotlessVehicles}
+      /> */}
+    </div>
+  );
+}

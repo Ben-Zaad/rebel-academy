@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-import { GraphColumn } from './graph-column';
-import { GetMultiplePagesData } from '../api/get-multiple-pages-data';
+import { getMultiplePagesData } from '../api/get-multiple-pages-data-noreact';
 
-// import { IMAGES } from '../images/images';
+import { GraphColumn } from './graph-column';
 
 export function PlanetPopulationGraph({ callback }) {
-  const [error, setError] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
   const [plantes, setPlanets] = useState([]);
 
   const saveData = (data) => {
@@ -16,15 +13,15 @@ export function PlanetPopulationGraph({ callback }) {
     callback(data);
   }
 
+  useEffect(
+    ()=>getMultiplePagesData('https://swapi.dev/api/planets',saveData)
+  ,[])
+
   return (
     <Div>
       <Graph>
-        <GetMultiplePagesData
-          title='Planets'
-          url='https://swapi.dev/api/planets'
-          callback={saveData}
-        />
-        {plantes &&
+        {/*CREATES A 1000 WARNINGS ON CONSOLE- CHECK BEFORE ALLOWING*/}    
+        {/* {plantes.length > 0 &&
           plantes
             .filter(
               (planet) =>
@@ -34,7 +31,7 @@ export function PlanetPopulationGraph({ callback }) {
                 planet.name === 'Bespin' ||
                 planet.name === 'Endor'
             )
-            .map((item) => <GraphColumn key={item.name} item={item} />)}
+            .map((item) => <GraphColumn key={item.name} item={item} />)} */}
       </Graph>
     </Div>
   );

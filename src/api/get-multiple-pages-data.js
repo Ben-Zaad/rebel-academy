@@ -24,9 +24,6 @@ export function GetMultiplePagesData({ title, url, callback }) {
             setItemsTotalNumber(result.count);
             setPageCounter(pageCounter + 1)
             },
-            // Note: it's important to handle errors here
-            // instead of a catch() block so that we don't swallow
-            // exceptions from actual bugs in components.
             (error) => {
               setIsLoaded(true);
               setError(error);
@@ -59,6 +56,7 @@ export function GetMultiplePagesData({ title, url, callback }) {
             setError(error);
           }
           )
+          .then()
     }
   , []);
 
