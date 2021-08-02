@@ -9,16 +9,22 @@ function App() {
   // const [error, setError] = useState(null);
   // const [isLoaded, setIsLoaded] = useState(false);
   const [planets, setPlanets] = useState([]);
-  // const [vehicles, setVehicles] = useState([]);
+  const [vehicles, setVehicles] = useState([]);
   const callback = (data) => {
     setPlanets(data);
   }
+  
+  useEffect(() => {
+    console.log("Vehicles",vehicles);
+    console.log("Planets",planets);
+  },[vehicles, planets])
+
   return (
     <AppRootDiv>
       <Title>Welcome Rebel!</Title>
       <SubTitle>Graph shows Selected Planet Poplations</SubTitle>
       <PlanetPopulationGraph callback={callback} />
-      {/* <Vehicles /> */}
+      <Vehicles callback={data=>setVehicles(data)} />
       <GraphSubTitle>Poplation Shown on a logarmitc (log2) scale</GraphSubTitle>
     </AppRootDiv>
   )

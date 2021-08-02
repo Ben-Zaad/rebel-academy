@@ -5,21 +5,17 @@ import { GetMultiplePagesData } from '../api/get-multiple-pages-data';
 
 // import { IMAGES } from '../images/images';
 
-export function Vehicles({  }) {
+export function Vehicles({ callback }) {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [vehicles, setItems] = useState([]);
   const [vehiclesTotalNumber, setItemsTotalNumber] = useState(2);
   const [pageCounter, setPageCounter] = useState(1);
-
-  useEffect(() => {
-    console.log("Vehicles",vehicles);
-  },[vehicles])
-
+  
     return (
       <Div>
         <Graph>
-          <GetMultiplePagesData url='https://swapi.dev/api/vehicles' callback={data=>setItems(data)} />
+          <GetMultiplePagesData url='https://swapi.dev/api/vehicles' callback={callback} />
         </Graph>
       </Div>
     );

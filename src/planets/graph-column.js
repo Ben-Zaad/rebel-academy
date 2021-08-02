@@ -14,7 +14,6 @@ export function GraphColumn({ item }) {
   `;
 
   const LegendDiv = styled.div`
-    margin-top: 3vh;
   `;
 
   const PopulationCountDiv = styled.div`
@@ -31,7 +30,7 @@ export function GraphColumn({ item }) {
   const NameText = styled.p`
     color: #FFE81F;
     text-align: center;
-    margin-top: -14vh;
+    margin-top: -35vh;
     @media (max-width: 1400px) {
         margin-right: 10vw;
     }
