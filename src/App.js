@@ -12,10 +12,18 @@ function App() {
   const [vehicles, setVehicles] = useState([]);
   const [people, setPeople] = useState([]);
   const [populationArray, setPopulationArray] = useState([]);
+  const [highestPopulationVehicle, setHighestPopulationVehicle] = useState({
+    vehicle: null,
+    largestPopulationSum: 0,
+    relatedPlanets: [],
+    relatedPilotNames: [],
+  });
 
   useEffect(() => {
     if (vehicles.length > 0 && planets.length > 0 && people.length > 0) {
-      setPopulationArray(getPilotsMaxHomePopulationSum(vehicles, people ,planets))
+      setHighestPopulationVehicle(
+        getPilotsMaxHomePopulationSum(vehicles, people, planets)
+      );
       // setIsDone(true);
     }
   }, [vehicles, planets, people]);
@@ -28,10 +36,13 @@ function App() {
       <Vehicles callback={(data) => setVehicles(data)} />
       <People callback={(data) => setPeople(data)} />
       <GraphSubTitle>Poplation Shown on a logarmitc (log2) scale</GraphSubTitle>
-      {populationArray[0] ?
-        <SubTitle>{populationArray[0].name} reaches population of up to {populationArray[1]} </SubTitle> :
+      {highestPopulationVehicle.vehicle ? (
+        <SubTitle>
+          {highestPopulationVehicle.vehicle.name} reaches population of up to {highestPopulationVehicle.largestPopulationSum}!
+        </SubTitle>
+      ) : (
         <SubTitle>LOADING VEHICLE DETAILS</SubTitle>
-      }
+      )}
     </AppRootDiv>
   );
 }

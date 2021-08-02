@@ -21,7 +21,7 @@ export function PlanetPopulationGraph({ callback }) {
     <Div>
       <Graph>
         {/*CREATES A 1000 WARNINGS ON CONSOLE- CHECK BEFORE ALLOWING*/}    
-        {/* {plantes.length > 0 &&
+        {plantes.length > 0 &&
           plantes
             .filter(
               (planet) =>
@@ -31,7 +31,7 @@ export function PlanetPopulationGraph({ callback }) {
                 planet.name === 'Bespin' ||
                 planet.name === 'Endor'
             )
-            .map((item) => <GraphColumn key={item.name} item={item} />)} */}
+            .map((item) => <GraphColumn key={item.name} item={item} />)}
       </Graph>
     </Div>
   );
