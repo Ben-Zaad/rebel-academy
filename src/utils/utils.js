@@ -5,14 +5,13 @@ export const getIndexFromForeignKey = (key) => {
     return null;
 }
 
-export const getPilotsMaxHomePopulationSum = (vehicles, people ,planets) => {
+export const getHighestPopulationData = (vehicles, people ,planets) => {
     let resultObject = {
         vehicle: null,
         largestPopulationSum: 0,
         relatedPlanets: [],
         relatedPilotNames: []
     }
-    let largestPopulationVisitedByVehicle = [null,0] //null = vehicle reset value, 0 = largest population sum reset value
     vehicles.forEach(vehicle => {
         let vehiclePopSum = 0;
         let pilotsNames = [];
@@ -22,7 +21,7 @@ export const getPilotsMaxHomePopulationSum = (vehicles, people ,planets) => {
             const homeworldPopulation = planets[getIndexFromForeignKey(pilotHomeworld)].population;
             vehiclePopSum += homeworldPopulation;
             pilotsNames.push(people[getIndexFromForeignKey(pilot)].name);
-            planetsNames.push(planets[getIndexFromForeignKey(pilotHomeworld)].name)
+            planetsNames.push({name: planets[getIndexFromForeignKey(pilotHomeworld)].name, population: planets[getIndexFromForeignKey(pilotHomeworld)].population})
         })
         if (resultObject.largestPopulationSum < parseInt(vehiclePopSum)){
             resultObject.vehicle = vehicle;
@@ -31,6 +30,5 @@ export const getPilotsMaxHomePopulationSum = (vehicles, people ,planets) => {
             resultObject.relatedPlanets = planetsNames;
         }
     })
-    console.log("resultObject",resultObject);
     return resultObject;
 }

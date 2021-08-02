@@ -3,7 +3,7 @@ import './App.css';
 import { PlanetPopulationGraph } from './planets/planets-population-graph';
 import { Vehicles } from './vehicles/vehicles-data';
 import { People } from './people/people-data';
-import { getPilotsMaxHomePopulationSum } from './utils/utils';
+import { getHighestPopulationData } from './utils/utils';
 import background from './images/bg.jpg';
 import styled from 'styled-components';
 
@@ -11,7 +11,6 @@ function App() {
   const [planets, setPlanets] = useState([]);
   const [vehicles, setVehicles] = useState([]);
   const [people, setPeople] = useState([]);
-  const [populationArray, setPopulationArray] = useState([]);
   const [highestPopulationVehicle, setHighestPopulationVehicle] = useState({
     vehicle: null,
     largestPopulationSum: 0,
@@ -22,9 +21,8 @@ function App() {
   useEffect(() => {
     if (vehicles.length > 0 && planets.length > 0 && people.length > 0) {
       setHighestPopulationVehicle(
-        getPilotsMaxHomePopulationSum(vehicles, people, planets)
+        getHighestPopulationData(vehicles, people, planets)
       );
-      // setIsDone(true);
     }
   }, [vehicles, planets, people]);
 
@@ -37,9 +35,28 @@ function App() {
       <People callback={(data) => setPeople(data)} />
       <GraphSubTitle>Poplation Shown on a logarmitc (log2) scale</GraphSubTitle>
       {highestPopulationVehicle.vehicle ? (
-        <SubTitle>
-          {highestPopulationVehicle.vehicle.name} reaches population of up to {highestPopulationVehicle.largestPopulationSum}!
-        </SubTitle>
+        <>
+          <SubTitle>
+            {highestPopulationVehicle.vehicle.name} reaches population of up to{' '}
+            {highestPopulationVehicle.largestPopulationSum}!
+          </SubTitle>
+          <Table>
+            <thead>
+            <TableRow>
+              <TableHeader>Largest Population Accessing Vehicle</TableHeader>
+              <TableHeader>Related Pilots</TableHeader>
+              <TableHeader>Related Home Planets</TableHeader>
+            </TableRow>
+            </thead>
+            <tbody>
+            <TableRow>
+              <TableData>{highestPopulationVehicle.vehicle.name} Population reach: {highestPopulationVehicle.largestPopulationSum}!</TableData>
+              <TableData>{highestPopulationVehicle.relatedPilotNames.map(pilotName=>{return `${pilotName} \n`})}</TableData>
+              <TableData>{highestPopulationVehicle.relatedPlanets.map(planet=>{return `${planet.name} population: ${planet.population} \n`})}</TableData>
+            </TableRow>
+            </tbody>
+          </Table>
+        </>
       ) : (
         <SubTitle>LOADING VEHICLE DETAILS</SubTitle>
       )}
@@ -70,5 +87,26 @@ const GraphSubTitle = styled.h4`
   font-style: italic;
   margin-top: -2vh;
 `;
+
+const Table = styled.table`
+  border: 1px solid #ffe81f;
+`;
+
+const TableHeader = styled.th`
+  color: #ffe81f;
+  width: 50vw;
+`
+
+const TableData = styled.td`
+  color: white;
+  align: center;
+  width: 50vw;
+  white-space: pre-wrap;
+`
+
+const TableRow = styled.tr`
+  text-align: center;
+  width: 50vw;
+`
 
 export default App;
