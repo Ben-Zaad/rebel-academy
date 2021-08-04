@@ -20,10 +20,11 @@ export function PlanetPopulationGraph({ callback }) {
   );
 
   return (
-    <Div>
+    <MainDiv>
       <Graph>
-        {plantes.length > 0 ? (
-          plantes
+        {plantes.length > 0 ? 
+          <GraphContainer>
+          {plantes
             .filter(
               (planet) =>
                 planet.name === 'Tatooine' ||
@@ -32,21 +33,23 @@ export function PlanetPopulationGraph({ callback }) {
                 planet.name === 'Bespin' ||
                 planet.name === 'Endor'
             )
-            .map((item) => <GraphColumn key={item.name} item={item} />)
-        ) : (
+            .map((item) => <GraphColumn key={item.name} item={item} />)}
+            <GraphSubTitle>Poplation Shown on a logarmitc (log2) scale</GraphSubTitle>
+            </GraphContainer>
+         : (
           <Container>
-            <LoaderDiv>
+            <LoaderMainDiv>
               <ClipLoader color={'White'} loading={true} size={50} />
               <Loading>Loading Planets Data...</Loading>
-            </LoaderDiv>
+            </LoaderMainDiv>
           </Container>
         )}
       </Graph>
-    </Div>
+    </MainDiv>
   );
 }
 
-const Div = styled.div`
+const MainDiv = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -58,6 +61,12 @@ const Graph = styled.div`
   padding-top: 50vh;
 `;
 
+const GraphContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  // position: absolute;
+`;
+
 const Loading = styled.h2`
   color: white;
 `;
@@ -67,6 +76,15 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-const LoaderDiv = styled.div`
+const LoaderMainDiv = styled.div`
   display: flex;
+`;
+
+const GraphSubTitle = styled.h4`
+  color: #ffe81f;
+  font-style: italic;
+  margin-top: -8vh;
+  margin-left: 8vh;
+  position: absolute;
+  margin
 `;

@@ -33,7 +33,6 @@ function App() {
       <PlanetPopulationGraph callback={(data) => setPlanets(data)} />
       <Vehicles callback={(data) => setVehicles(data)} />
       <People callback={(data) => setPeople(data)} />
-      <GraphSubTitle>Poplation Shown on a logarmitc (log2) scale</GraphSubTitle>
       {highestPopulationVehicle.vehicle ? (
         <>
           <Table>
@@ -75,13 +74,6 @@ const Title = styled.h1`
 const SubTitle = styled.h3`
   color: #ffe81f;
   text-align: center;
-`;
-
-const GraphSubTitle = styled.h4`
-  color: #ffe81f;
-  text-align: center;
-  font-style: italic;
-  margin-top: -2vh;
 `;
 
 const Table = styled.table`
