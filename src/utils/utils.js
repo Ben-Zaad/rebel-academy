@@ -1,4 +1,8 @@
-export const getIndexFromForeignKey = (key) => {    
+export const getNumString = (num) => {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+const getIndexFromForeignKey = (key) => {    
     if (key){
         return (parseInt(key.split('/')[5]) - 1)
     }

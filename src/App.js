@@ -3,7 +3,7 @@ import './App.css';
 import { PlanetPopulationGraph } from './planets/planets-population-graph';
 import { Vehicles } from './vehicles/vehicles-data';
 import { People } from './people/people-data';
-import { getHighestPopulationData } from './utils/utils';
+import { getHighestPopulationData, getNumString } from './utils/utils';
 import background from './images/bg.jpg';
 import styled from 'styled-components';
 
@@ -29,17 +29,13 @@ function App() {
   return (
     <AppRootDiv>
       <Title>Welcome Rebel!</Title>
-      <SubTitle>Graph shows Selected Planet Poplations</SubTitle>
+      <SubTitle>Graph shows Selected Planet Populations</SubTitle>
       <PlanetPopulationGraph callback={(data) => setPlanets(data)} />
       <Vehicles callback={(data) => setVehicles(data)} />
       <People callback={(data) => setPeople(data)} />
       <GraphSubTitle>Poplation Shown on a logarmitc (log2) scale</GraphSubTitle>
       {highestPopulationVehicle.vehicle ? (
         <>
-          <SubTitle>
-            {highestPopulationVehicle.vehicle.name} reaches population of up to{' '}
-            {highestPopulationVehicle.largestPopulationSum}!
-          </SubTitle>
           <Table>
             <thead>
             <TableRow>
@@ -50,15 +46,15 @@ function App() {
             </thead>
             <tbody>
             <TableRow>
-              <TableData>{highestPopulationVehicle.vehicle.name} Population reach: {highestPopulationVehicle.largestPopulationSum}!</TableData>
+              <TableData>{highestPopulationVehicle.vehicle.name} Population reach: {getNumString(highestPopulationVehicle.largestPopulationSum)}!</TableData>
               <TableData>{highestPopulationVehicle.relatedPilotNames.map(pilotName=>{return `${pilotName} \n`})}</TableData>
-              <TableData>{highestPopulationVehicle.relatedPlanets.map(planet=>{return `${planet.name} population: ${planet.population} \n`})}</TableData>
+              <TableData>{highestPopulationVehicle.relatedPlanets.map(planet=>{return `${planet.name} population: ${getNumString(planet.population)} \n`})}</TableData>
             </TableRow>
             </tbody>
           </Table>
         </>
       ) : (
-        <SubTitle>LOADING VEHICLE DETAILS</SubTitle>
+        <SubTitle>Calculating Vehicles Populations Sums</SubTitle>
       )}
     </AppRootDiv>
   );
@@ -66,7 +62,7 @@ function App() {
 
 const AppRootDiv = styled.div`
   width: 99vw;
-  height: 100vh;
+  height: 101vh;
   background-image: url(${background});
 `;
 

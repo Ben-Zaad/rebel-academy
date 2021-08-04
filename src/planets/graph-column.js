@@ -1,14 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { getNumString } from '../utils/utils';
+
 export function GraphColumn({ item }) {
   return (
     <Container>
       <LegendDiv>
         <NameText>{item.name}</NameText>
       </LegendDiv>
-      <PopulationCountDiv height={`${Math.log2(item.population)}vh`}>
-        <PopulationText>{item.population}</PopulationText>
+      <PopulationCountDiv height={`${(Math.log2(item.population)) * 1.1}vh`}>
+        <PopulationText>{getNumString(item.population)}</PopulationText>
       </PopulationCountDiv>
     </Container>
   );

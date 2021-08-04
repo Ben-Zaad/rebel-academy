@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import ClipLoader from "react-spinners/ClipLoader";
 
 import { getMultiplePagesData } from '../api/get-multiple-pages-data-noreact';
 
@@ -11,16 +12,17 @@ export function PlanetPopulationGraph({ callback }) {
   const saveData = (data) => {
     setPlanets(data);
     callback(data);
-  }
+  };
 
   useEffect(
-    ()=>getMultiplePagesData('https://swapi.dev/api/planets',saveData)
-  ,[])
+    () => getMultiplePagesData('https://swapi.dev/api/planets', saveData),
+    []
+  );
 
   return (
     <Div>
       <Graph>
-        {plantes.length > 0 ?
+        {plantes.length > 0 ? (
           plantes
             .filter(
               (planet) =>
@@ -30,8 +32,15 @@ export function PlanetPopulationGraph({ callback }) {
                 planet.name === 'Bespin' ||
                 planet.name === 'Endor'
             )
-            .map((item) => <GraphColumn key={item.name} item={item} />):
-            <Loading>Loading Planet Data</Loading>}
+            .map((item) => <GraphColumn key={item.name} item={item} />)
+        ) : (
+          <Container>
+            <LoaderDiv>
+              <ClipLoader color={'White'} loading={true} size={50} />
+              <Loading>Loading Planets Data...</Loading>
+            </LoaderDiv>
+          </Container>
+        )}
       </Graph>
     </Div>
   );
@@ -51,4 +60,13 @@ const Graph = styled.div`
 
 const Loading = styled.h2`
   color: white;
-`
+`;
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const LoaderDiv = styled.div`
+  display: flex;
+`;
