@@ -23,7 +23,7 @@ export const getHighestPopulationData = (vehicles, people ,planets) => {
         vehicle.pilots.forEach(pilot => {
             const pilotHomeworld = people[getIndexFromForeignKey(pilot)].homeworld;
             const homeworldPopulation = planets[getIndexFromForeignKey(pilotHomeworld)].population;
-            vehiclePopSum += homeworldPopulation;
+            vehiclePopSum += parseInt(homeworldPopulation);
             pilotsNames.push(people[getIndexFromForeignKey(pilot)].name);
             planetsNames.push({name: planets[getIndexFromForeignKey(pilotHomeworld)].name, population: planets[getIndexFromForeignKey(pilotHomeworld)].population})
         })

@@ -64,7 +64,6 @@ const Graph = styled.div`
 const GraphContainer = styled.div`
   display: flex;
   flex-direction: row;
-  // position: absolute;
 `;
 
 const Loading = styled.h2`
