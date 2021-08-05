@@ -12,7 +12,6 @@ export const getMultiplePagesData = async (url, callback, setErrorMessage) => {
     }
     callback(dataContainer);
   } catch (error){
-    console.log("ERROR IN getMultiplePagesData under url ",url, "Error message:",error.message);
     setErrorMessage(error.message + ' url ' + url);
   }
 }
