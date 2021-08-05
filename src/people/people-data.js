@@ -1,26 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import ClipLoader from "react-spinners/ClipLoader";
+import ClipLoader from 'react-spinners/ClipLoader';
 
 import { getMultiplePagesData } from '../api/get-multiple-pages-data-noreact';
 
 export function People({ callback }) {
-  const [isDone, setIsDone] = useState(false)
-  
-  const callbackWrapper = (data) => {
-    setIsDone(true);
-    callback(data)
-  }
-  
+  const [isDone, setIsDone] = useState(false);
+
   useEffect(
-    ()=>getMultiplePagesData('https://swapi.dev/api/people',callbackWrapper)
-  ,[])
+    () =>
+      getMultiplePagesData('https://swapi.dev/api/people', (data) => {
+        setIsDone(true);
+        callback(data);
+      }),
+    [callback]
+  );
 
   return (
     <Container>
-      {!isDone && 
-      <LoaderDiv><ClipLoader color={'White'} loading={true}  size={50} /><Loading>Loading People Data...</Loading></LoaderDiv>
-      }
+      {!isDone && (
+        <LoaderDiv>
+          <ClipLoader color={'White'} loading={true} size={50} />
+          <Loading>Loading People Data...</Loading>
+        </LoaderDiv>
+      )}
     </Container>
   );
 }
@@ -37,4 +40,4 @@ const LoaderDiv = styled.div`
 
 const Loading = styled.h2`
   color: white;
-`
+`;

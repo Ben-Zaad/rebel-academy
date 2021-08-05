@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import ClipLoader from "react-spinners/ClipLoader";
+import ClipLoader from 'react-spinners/ClipLoader';
 
 import { getMultiplePagesData } from '../api/get-multiple-pages-data-noreact';
 
@@ -9,34 +9,37 @@ import { GraphColumn } from './graph-column';
 export function PlanetPopulationGraph({ callback }) {
   const [plantes, setPlanets] = useState([]);
 
-  const saveData = (data) => {
-    setPlanets(data);
-    callback(data);
-  };
-
   useEffect(
-    () => getMultiplePagesData('https://swapi.dev/api/planets', saveData),
-    []
+    () =>
+      getMultiplePagesData('https://swapi.dev/api/planets', (data) => {
+        setPlanets(data);
+        callback(data);
+      }),
+    [callback]
   );
 
   return (
     <MainDiv>
       <Graph>
-        {plantes.length > 0 ? 
+        {plantes.length > 0 ? (
           <GraphContainer>
-          {plantes
-            .filter(
-              (planet) =>
-                planet.name === 'Tatooine' ||
-                planet.name === 'Alderaan' ||
-                planet.name === 'Naboo' ||
-                planet.name === 'Bespin' ||
-                planet.name === 'Endor'
-            )
-            .map((item) => <GraphColumn key={item.name} item={item} />)}
-            <GraphSubTitle>Poplation Shown on a logarmitc (log2) scale</GraphSubTitle>
-            </GraphContainer>
-         : (
+            {plantes
+              .filter(
+                (planet) =>
+                  planet.name === 'Tatooine' ||
+                  planet.name === 'Alderaan' ||
+                  planet.name === 'Naboo' ||
+                  planet.name === 'Bespin' ||
+                  planet.name === 'Endor'
+              )
+              .map((item) => (
+                <GraphColumn key={item.name} item={item} />
+              ))}
+            <GraphSubTitle>
+              Poplation Shown on a logarmitc (log2) scale
+            </GraphSubTitle>
+          </GraphContainer>
+        ) : (
           <Container>
             <LoaderMainDiv>
               <ClipLoader color={'White'} loading={true} size={50} />
