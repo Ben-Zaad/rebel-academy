@@ -6,24 +6,25 @@ import { getMultiplePagesData } from '../api/get-multiple-pages-data-noreact';
 
 export function People({ callback }) {
   const [isDone, setIsDone] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(
     () =>
       getMultiplePagesData('https://swapi.dev/api/people', (data) => {
         setIsDone(true);
         callback(data);
-      }),
+      },setError),
     [callback]
   );
 
   return (
     <Container>
-      {!isDone && (
-        <LoaderDiv>
-          <ClipLoader color={'White'} loading={true} size={50} />
-          <Loading>Loading People Data...</Loading>
-        </LoaderDiv>
-      )}
+      {error ? (
+        <PageText>{error}</PageText>
+      ) : !isDone && <LoaderDiv>
+      <ClipLoader color={'White'} loading={true} size={50} />
+      <PageText>Loading People Data...</PageText>
+    </LoaderDiv>}
     </Container>
   );
 }
@@ -38,6 +39,6 @@ const LoaderDiv = styled.div`
   display: flex;
 `;
 
-const Loading = styled.h2`
+const PageText = styled.h2`
   color: white;
 `;

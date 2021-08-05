@@ -8,13 +8,14 @@ import { GraphColumn } from './graph-column';
 
 export function PlanetPopulationGraph({ callback }) {
   const [plantes, setPlanets] = useState([]);
+  const [error, setError] = useState(null);
 
   useEffect(
     () =>
       getMultiplePagesData('https://swapi.dev/api/planets', (data) => {
         setPlanets(data);
         callback(data);
-      }),
+      },setError),
     [callback]
   );
 
@@ -39,11 +40,11 @@ export function PlanetPopulationGraph({ callback }) {
               Poplation Shown on a logarmitc (log2) scale
             </GraphSubTitle>
           </GraphContainer>
-        ) : (
+        ) : error ? (<PageText>{error}</PageText>) : (
           <Container>
             <LoaderMainDiv>
               <ClipLoader color={'White'} loading={true} size={50} />
-              <Loading>Loading Planets Data...</Loading>
+              <PageText>PageText Planets Data...</PageText>
             </LoaderMainDiv>
           </Container>
         )}
@@ -69,7 +70,7 @@ const GraphContainer = styled.div`
   flex-direction: row;
 `;
 
-const Loading = styled.h2`
+const PageText = styled.h2`
   color: white;
 `;
 const Container = styled.div`

@@ -6,6 +6,7 @@ import { getMultiplePagesData } from '../api/get-multiple-pages-data-noreact';
 
 export function Vehicles({ callback }) {
   const [isDone, setIsDone] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(
     () =>
@@ -15,21 +16,19 @@ export function Vehicles({ callback }) {
           (vehicles) => vehicles.pilots.length > 0
         );
         callback(filterdData);
-      }),
+      },setError),
     [callback]
   );
 
   return (
-    <div>
-      <Container>
-        {!isDone && (
-          <LoaderDiv>
-            <ClipLoader color={'White'} loading={true} size={50} />
-            <Loading>Loading Vehicles Data...</Loading>
-          </LoaderDiv>
-        )}
-      </Container>
-    </div>
+    <Container>
+    {error ? (
+      <PageText>{error}</PageText>
+    ) : !isDone && <LoaderDiv>
+    <ClipLoader color={'White'} loading={true} size={50} />
+    <PageText>Loading Vehicles Data...</PageText>
+  </LoaderDiv>}
+  </Container>
   );
 }
 
@@ -43,6 +42,6 @@ const LoaderDiv = styled.div`
   display: flex;
 `;
 
-const Loading = styled.h2`
+const PageText = styled.h2`
   color: white;
 `;

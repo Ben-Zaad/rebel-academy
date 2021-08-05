@@ -1,4 +1,4 @@
-export const getMultiplePagesData = async (url, callback) => {
+export const getMultiplePagesData = async (url, callback, setErrorMessage) => {
   try{
     const firstPromise = await fetch(`${url}/?page=1`);
     const result = await firstPromise.json();
@@ -13,5 +13,6 @@ export const getMultiplePagesData = async (url, callback) => {
     callback(dataContainer);
   } catch (error){
     console.log("ERROR IN getMultiplePagesData under url ",url, "Error message:",error.message);
+    setErrorMessage(error.message + ' url ' + url);
   }
 }
