@@ -33,7 +33,7 @@ function App() {
       <PlanetPopulationGraph callback={(data) => setPlanets(data)} />
       <Vehicles callback={(data) => setVehicles(data)} />
       <People callback={(data) => setPeople(data)} />
-      {highestPopulationVehicle.vehicle ? (
+      {highestPopulationVehicle.vehicle && (
         <>
           <Table>
             <thead>
@@ -52,8 +52,6 @@ function App() {
             </tbody>
           </Table>
         </>
-      ) : (
-        <SubTitle>Calculating Vehicles Populations Sums</SubTitle>
       )}
     </AppRootDiv>
   );
